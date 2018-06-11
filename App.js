@@ -14,6 +14,7 @@ import {
   TextInput,
   ListView
 } from 'react-native';
+import MyScene from "./MyScene";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -28,7 +29,32 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.container}>
+        <Navigator
+            initialRoute={{ title: 'My Initial Scene', index: 0 }}
+            renderScene={(route, navigator) =>
+                <MyScene
+                    title={route.title}
+
+                    // Function to call when a new scene should be displayed
+                    onForward={ () => {
+                        const nextIndex = route.index + 1;
+                        navigator.push({
+                            title: 'Scene ' + nextIndex,
+                            index: nextIndex,
+                        });
+                    }}
+
+                    // Function to call to go back to the previous scene
+                    onBack={() => {
+                        if (route.index > 0) {
+                            navigator.pop();
+                        }
+                    }}
+                />
+            }
+        />);
+   {/*     <MyScene/>);*/}
+{/*      <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
           Welcome to React Native!
@@ -56,8 +82,14 @@ export default class App extends Component<Props> {
           <Greeting name='Jaina' />
           <Greeting name='Valeera' />
         </View>
-      </View>
-    );
+          <View>
+              <Blink text='I love to blink' />
+              <Blink text='Yes blinking is so great' />
+              <Blink text='Why did they ever take this out of HTML' />
+              <Blink text='Look at me look at me look at me' />
+          </View>
+      </View>*/}
+
   }
 
 
@@ -69,6 +101,27 @@ export default class App extends Component<Props> {
         );
     }
 }
+
+class Blink extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { showText: true };
+
+        // 每1000毫秒对showText状态做一次取反操作
+        setInterval(() => {
+            this.setState({ showText: !this.state.showText });
+        }, 1000);
+    }
+
+    render() {
+        // 根据当前showText的值决定是否显示text内容
+        let display = this.state.showText ? this.props.text : ' ';
+        return (
+            <Text>{display}</Text>
+        );
+    }
+}
+
 
 class Greeting extends Component {
     render() {
