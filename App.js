@@ -28,7 +28,7 @@ export default class App extends Component<Props> {
 
 
   render() {
-    return (
+      return(
         <Navigator
             initialRoute={{ title: 'My Initial Scene', index: 0 }}
             renderScene={(route, navigator) =>
@@ -53,8 +53,8 @@ export default class App extends Component<Props> {
                 />
             }
         />);
-   {/*     <MyScene/>);*/}
-{/*      <View style={styles.container}>
+
+/*      <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
           Welcome to React Native!
@@ -88,8 +88,9 @@ export default class App extends Component<Props> {
               <Blink text='Why did they ever take this out of HTML' />
               <Blink text='Look at me look at me look at me' />
           </View>
-      </View>*/}
+      </View>*/
 
+      // return (<MyScene/>);
   }
 
 
